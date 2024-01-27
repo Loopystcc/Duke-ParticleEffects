@@ -1,6 +1,24 @@
 const particleArray = [];
 const canvas = document.getElementById("canvas1");
-const ctx = canvas.getContext('2d');
+function setupCanvas(canvas) {
+    // Get the device pixel ratio, falling back to 1
+    let dpr = window.devicePixelRatio || 1;
+    // Get the size of the canvas in CSS pixels
+    let rect = canvas.getBoundingClientRect();
+    // Give the canvas pixel dimensions of their CSS
+    // size * the device pixel ratio
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    let ctx = canvas.getContext('2d');
+    // Scale all drawing operations by the dpr, so you
+    // don't have to worry about the difference
+    ctx.scale(dpr, dpr);
+    return ctx;
+}
+
+// Now, use this function to set up your canvas context
+const ctx = setupCanvas(document.getElementById('canvas1'));
+
 
 let hue = 0;
 
