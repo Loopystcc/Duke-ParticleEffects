@@ -23,13 +23,21 @@ addEventListener('mousemove',function(event){
         particleArray.push(new Particle());
     }
 })
-addEventListener('touchmove',function(event){
-    mouse.x = event.x;
-    mouse.y = event.y;
-    for(let i=0;i<10;i++){
-        particleArray.push(new Particle());
+addEventListener('touchmove', function(event) {
+    if (event.touches.length > 0) {
+        // Prevent default behavior to avoid page scrolling when drawing on the canvas
+        event.preventDefault();
+
+        // Get the touch coordinates
+        mouse.x = event.touches[0].clientX;
+        mouse.y = event.touches[0].clientY;
+        
+        for (let i = 0; i < 10; i++) {
+            particleArray.push(new Particle());
+        }
     }
-})
+}, { passive: false }); // Set passive to false to enable preventDefault
+
 addEventListener('click',function(event){
     mouse.x = event.x;
     mouse.y = event.y;
